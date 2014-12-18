@@ -4,7 +4,7 @@ This repository contains the source code for Urban's Build Your Own Pension tool
 
 ## Running Model server/desktop-side through NodeJS
 
-The Model code can be used to simulate pensions on the desktop by running the code through NodeJS, after running `npm install` to install dependencies. See [model_test.coffee](https://github.com/UI-Research/pension-modeler/blob/master/test/model_test.coffee) for an example usage.
+The Model code can be used to simulate pensions on the desktop by running the code through NodeJS, after running `npm install` to install dependencies. See [model_test.coffee](https://github.com/UrbanInstitute/build-your-own-pension/blob/master/test/model_test.coffee) for an example usage.
 
 ## Building Web Application
 
