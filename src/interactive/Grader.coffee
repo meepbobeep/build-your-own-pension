@@ -6,8 +6,9 @@
   -----------------------------------
 ###
 
+bgs = require '../bgs.coffee'
 
-class Grader
+module.exports = class Grader
 
   constructor : (@criteria, @renderTo="#grade-list") ->
     self = @
@@ -42,6 +43,9 @@ class Grader
       start = plan.parameters.start_age
       end = plan.parameters.max_ret_age
       inflation = plan.parameters.inflation
+
+      max = Math.max
+      pow = Math.pow
 
       ### Calculate Grading ratios ###
       ratios =
@@ -288,6 +292,3 @@ class Grader
         "
     }
     return self
-
-# node exporting
-module?.exports = Grader

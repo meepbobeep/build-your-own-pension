@@ -4,12 +4,9 @@
   12/05/14
 ###
 
-# imports if running through node
-try
-  bgs = require '../bgs'
-catch e
+bgs = require '../bgs.coffee'
 
-class Slider
+module.exports = class Slider
 
   ### Slider Constructor Method ###
   constructor : (opts) ->
@@ -78,7 +75,7 @@ class Slider
 
 
     # reference to JQuery selection of slider input
-    @$slider = $ @slider.node()
+    @$slider = $( @slider.node() )
 
     # Add parameter description text
     description = collapse_body.append('div')
@@ -131,9 +128,3 @@ class Slider
         self.text_input.property('value', self.formatter value)
         if self.calculate
           self.slide.call self.model, value
-
-
-# node exporting
-try
-  module?.exports = Slider
-catch e

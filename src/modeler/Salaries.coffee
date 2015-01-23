@@ -4,12 +4,9 @@
     12/11/14
 ###
 
-# imports if running through node
-try
-  Equation = require './Equation'
-catch e
+Equation = require './Equation.coffee'
 
-class Salaries extends Equation
+module.exports = class Salaries extends Equation
 
   constructor : ->
 
@@ -48,7 +45,3 @@ class Salaries extends Equation
       ]
       formula : formula
 
-# node exporting
-try
-  module?.exports = Salaries
-catch e

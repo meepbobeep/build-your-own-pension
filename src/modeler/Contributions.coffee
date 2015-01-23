@@ -4,12 +4,9 @@
     12/11/14
 ###
 
-# imports if running through node
-try
-  Equation = require './Equation'
-catch e
+Equation = require './Equation.coffee'
 
-class Contributions extends Equation
+module.exports = class Contributions extends Equation
 
   constructor : (opts) ->
     rate = opts.rate
@@ -37,7 +34,3 @@ class Contributions extends Equation
       ]
       formula : formula
 
-# node exporting
-try
-  module?.exports = Contributions
-catch e

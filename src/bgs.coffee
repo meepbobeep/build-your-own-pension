@@ -134,8 +134,11 @@ exp_bounded_ror = (mu, sigma, guarantee, cap) ->
     cap*(1 - CDF(cap))
   )
 
+zeros = (n) -> (0 for _ in [0..n] by 1)
 
-bgs =
+
+module.exports = bgs =
+  zeros : zeros
   copy : copy
   obj : obj
   arrayFunc : arrayFunc
@@ -157,7 +160,3 @@ bgs =
   gaussian_CDF : gaussian_CDF
   exp_bounded_ror : exp_bounded_ror
 
-try
-  module.exports = bgs
-catch e
-  window.bgs = bgs

@@ -4,8 +4,9 @@
     12/11/14
 ###
 
+bgs = require '../bgs.coffee'
 
-class MiniLine
+module.exports = class MiniLine
 
   constructor : (opts) ->
     @container = d3.select(opts.renderTo)

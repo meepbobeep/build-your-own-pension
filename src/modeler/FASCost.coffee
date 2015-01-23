@@ -3,7 +3,8 @@
     Ben Southgate (bsouthga@gmail.com)
     12/11/14
 ###
-class FASCost
+
+module.exports = class FASCost
 
   constructor : (weights) ->
     @update(weights)
@@ -40,8 +41,3 @@ class FASCost
         year = parseFloat(year)
         @max_yos = year if year > @max_yos
     return @
-
-# node exporting
-try
-  module?.exports = FASCost
-catch e

@@ -4,7 +4,7 @@
   12/05/14
 ###
 
-class Equation
+module.exports = class Equation
 
   constructor : (opts) ->
     @formula = opts.formula
@@ -22,8 +22,3 @@ class Equation
     if not context.parameters
       throw "No parameters were given when evaluating function #{@name}"
     @formula.call(context, context.parameters)
-
-# node exporting
-try
-  module?.exports = Equation
-catch e

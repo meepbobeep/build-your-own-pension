@@ -5,6 +5,20 @@
 ###
 
 
+# Interactive Feature Dependencies
+bgs = require './bgs.coffee'
+Grader = require './interactive/Grader.coffee'
+PlanCost = require './interactive/PlanCost.coffee'
+MiniLine = require './interactive/MiniLine.coffee'
+
+# Modeling Dependencies
+FAS = require './modeler/FAS.coffee'
+FASCost = require './modeler/FASCost.coffee'
+CBCost = require './modeler/CBCost.coffee'
+CashBalance = require './modeler/CashBalance.coffee'
+DefaultParameters = require './modeler/DefaultParameters.coffee'
+
+
 
 # ----------------------------------------
 #
@@ -95,6 +109,7 @@ onDataLoad (datalist) ->
 
   # extract default parameters
   defaults = new DefaultParameters(data, merit).defaults
+
 
   # Classes used to hide / show parameters for
   # certain plans
@@ -560,6 +575,7 @@ onDataLoad (datalist) ->
   undo.model = FAS_Main
   activateModel FAS_Main
   $('.slider-control.CB').hide()
+
 
   # ----------------------------------------
   #

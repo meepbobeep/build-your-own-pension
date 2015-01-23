@@ -4,16 +4,13 @@
   12/05/14
 ###
 
-# imports if running through node
-try
-  fs = require 'fs'
-  csv = require 'fast-csv'
-  bgs = require '../bgs'
-  Plot = require './Plot'
-  Slider = require './Slider'
-catch e
 
-class Model
+bgs = require '../bgs.coffee'
+Plot = require './Plot.coffee'
+Slider = require './Slider.coffee'
+
+
+module.exports = class Model
 
   constructor : (opts) ->
 
@@ -27,7 +24,6 @@ class Model
     @alternate_plans = opts.alternate_plans
     @lock = if opts.lock then bgs.obj([p, true] for p in opts.lock) else {}
     @costCalculator = opts.costCalculator
-
 
     # Store equations
     @equations = []
@@ -359,38 +355,3 @@ class Model
       console.log(param)
       throw "Invalid parameter passed to function builder."
 
-  toCSV : (filename) ->
-    #
-    # output model results to csv,
-    # only usable if running in node
-    #
-    try
-      fs and csv and require
-    catch e
-      console.log("toCSV only available in node.js")
-
-    filename ?= "model_#{@name}_output.csv"
-    self = @
-    csvStream = csv.createWriteStream({headers: true})
-    writableStream = fs.createWriteStream(filename)
-
-    writableStream.on "finish", ->
-      console.log("Model #{self.name} written to #{filename}")
-
-    csvStream.pipe(writableStream)
-
-    ages = (a for a of @variables.salaries)
-    for a in ages
-      row = {quit_age : a}
-      for name, vector of @variables
-        row[name] = vector[a]
-      csvStream.write(row)
-
-    csvStream.end()
-    return self
-
-
-# node exporting
-try
-  module?.exports = Model
-catch e

@@ -4,21 +4,18 @@
   12/05/14
 ###
 
+bgs             = require '../bgs.coffee'
+Model           = require './Model.coffee'
+Equation        = require './Equation.coffee'
+Account         = require './Account.coffee'
+Accrual         = require './Accrual.coffee'
+Deflated        = require './Deflated.coffee'
+Contributions   = require './Contributions.coffee'
+Salaries        = require './Salaries.coffee'
+SocialSecurity  = require './SocialSecurity.coffee'
 
-# imports if running through node
-try
-  bgs             = require '../bgs'
-  Model           = require './Model'
-  Equation        = require './Equation'
-  Account         = require './Account'
-  Accrual         = require './Accrual'
-  Deflated        = require './Deflated'
-  Contributions   = require './Contributions'
-  Salaries        = require './Salaries'
-  SocialSecurity  = require './SocialSecurity'
-catch e
 
-class FAS extends Model
+module.exports = class FAS extends Model
 
   constructor : (opts) ->
 
@@ -114,6 +111,8 @@ class FAS extends Model
       name : "contributions"
       rate : "employee_contrib_rate"
 
+
+
     ###
       -------------------------------------
       gov account balance
@@ -174,6 +173,7 @@ class FAS extends Model
         start = p.start_age
         end = p.max_ret_age
         ror = p.ror
+        NRA = p.NRA
         fixed_takeup = p.fixed_takeup
         eligible = paramBuilder(p.eligible)
         surv = p.survival
@@ -194,7 +194,10 @@ class FAS extends Model
             max_pension_wealth = -Infinity
             max_takeup = -Infinity
             max_ben = -Infinity
-            for takeupage in [eligible(p, age)..end] by 1
+            max_takeup_age = Math.max(NRA, age)
+            # Individuals can collect between first eligibility
+            # and the maximum of their NRA and their current age
+            for takeupage in [eligible(p, age)..max_takeup_age] by 1
               ### inputs for pension benefit formula ###
               opts =
                 p          : p
@@ -233,6 +236,7 @@ class FAS extends Model
               )
         return out
 
+
     ###
       -------------------------------------
       Baseline Annual Benefit
@@ -241,6 +245,8 @@ class FAS extends Model
     EQ_benefit = new Deflated
       name : "benefit"
       variable : "nominal_benefit"
+
+
 
     ###
       -------------------------------------
@@ -273,6 +279,8 @@ class FAS extends Model
             benefit = ben[age]
             out[age] = benefit*cola_increase
           return out
+
+
 
     ###
       -------------------------------------
@@ -321,6 +329,8 @@ class FAS extends Model
                       else
                         account[age]
         return out
+
+
 
     ###
       ----------------------------------
@@ -422,6 +432,7 @@ class FAS extends Model
     })
 
 
+
     ###
       ----------------------------------
       Maximum pdv wealth
@@ -485,6 +496,7 @@ class FAS extends Model
         return out
     })
 
+
     ### full list of FAS equations ###
     full_equations = [
       new Salaries()
@@ -519,7 +531,3 @@ class FAS extends Model
     ### Call Model Class constructor ###
     super(opts)
 
-# node exporting
-try
-  module?.exports = FAS
-catch e

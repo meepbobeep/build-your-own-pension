@@ -4,7 +4,7 @@
   12/05/14
 ###
 
-class DefaultParameters
+module.exports = class DefaultParameters
 
   constructor : (data, merit) ->
     # ----------------------------------------
@@ -92,7 +92,3 @@ class DefaultParameters
         p.base_mutiplier + p.multiplier_bonus*(
           Math.max(0, takeupage - p.NRA)
         )
-
-try
-  module.exports = DefaultParameters
-catch e

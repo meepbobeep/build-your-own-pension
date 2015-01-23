@@ -5,12 +5,11 @@
     12/11/14
 ###
 
-# imports if running through node
-try
-  bgs = require '../bgs'
-catch e
 
-class CBCost
+bgs = require '../bgs.coffee'
+
+
+module.exports = class CBCost
 
   constructor : (weights) ->
     @update(weights)
@@ -31,10 +30,10 @@ class CBCost
     wgt = @weights
 
     # initialize payroll to 0
-    payroll = (0 for y in [0..@max_yos] by 1)
-    sal_sum = (0 for y in [0..@max_yos] by 1)
-    balance = (0 for y in [0..@max_yos] by 1)
-    topup = (0 for y in [0..@max_yos] by 1)
+    payroll = bgs.zeros(@max_yos)
+    sal_sum = bgs.zeros(@max_yos)
+    balance = bgs.zeros(@max_yos)
+    topup =   bgs.zeros(@max_yos)
 
     # Calculate expectation
     E_ror = if sigma != 0
@@ -89,7 +88,3 @@ class CBCost
         year = parseFloat(year)
         @max_yos = year if year > @max_yos
     return @
-
-try
-  module?.exports = CBCost
-catch e

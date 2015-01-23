@@ -4,12 +4,9 @@
     12/11/14
 ###
 
-# imports if running through node
-try
-  Equation = require './Equation'
-catch e
+Equation = require './Equation.coffee'
 
-class Deflated extends Equation
+module.exports = class Deflated extends Equation
 
   constructor : (opts) ->
 
@@ -44,8 +41,3 @@ class Deflated extends Equation
         "start_age", "max_ret_age", "inflation"
       ]
       formula : formula
-
-# node exporting
-try
-  module?.exports = Deflated
-catch e

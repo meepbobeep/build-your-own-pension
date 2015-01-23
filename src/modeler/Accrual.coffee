@@ -4,13 +4,9 @@
     12/11/14
 ###
 
-# imports if running through node
-try
-  Equation = require './Equation'
-catch e
+Equation = require './Equation.coffee'
 
-
-class Accrual extends Equation
+module.exports = class Accrual extends Equation
 
   constructor : (opts) ->
 
@@ -44,9 +40,3 @@ class Accrual extends Equation
       ]
       formula : formula
 
-
-
-# node exporting
-try
-  module?.exports = Accrual
-catch e

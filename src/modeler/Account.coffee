@@ -4,12 +4,9 @@
     12/11/14
 ###
 
-# imports if running through node
-try
-  Equation = require './Equation'
-catch e
+Equation = require './Equation.coffee'
 
-class Account extends Equation
+module.exports = class Account extends Equation
 
   constructor : (opts) ->
     variable = opts.variable
@@ -36,7 +33,3 @@ class Account extends Equation
         "start_age", "max_ret_age", ror
       ]
       formula : formula
-# node exporting
-try
-  module?.exports = Account
-catch e

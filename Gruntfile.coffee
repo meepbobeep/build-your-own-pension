@@ -5,7 +5,9 @@
 #
 
 deploy_path_list = [
-  # INSERT DEPLOY PATH
+  'B:/bsouthga/Modeler'
+  'B:/build-your-own-pension/'
+  'T:/Bsouthga_mugroup/build-your-own-pension/'
 ]
 
 css_dependencies = [
@@ -27,53 +29,6 @@ js_dependencies = [
   "./lib/vendor/bootstrap.min.js"
   "./lib/vendor/rangeslider.min.js"
 ]
-
-coffee_source = [
-  #
-  # BGS helper library
-  #
-  './src/bgs.coffee'
-  #
-  # Modeler Classes
-  #
-
-  # Base Classes
-  './src/modeler/Plot.coffee'
-  './src/modeler/Slider.coffee'
-  './src/modeler/Model.coffee'
-
-  # Equations
-  './src/modeler/Equation.coffee'
-  './src/modeler/SocialSecurity.coffee'
-  './src/modeler/Salaries.coffee'
-  './src/modeler/Accrual.coffee'
-  './src/modeler/Deflated.coffee'
-  './src/modeler/Account.coffee'
-  './src/modeler/Contributions.coffee'
-
-  # Models
-  './src/modeler/FAS.coffee'
-  './src/modeler/CashBalance.coffee'
-
-  # Cost Calculators
-  './src/modeler/FASCost.coffee'
-  './src/modeler/CBCost.coffee'
-
-  # Default Model Parameters
-  './src/modeler/DefaultParameters.coffee'
-
-  #
-  # Interactive Feature Classes
-  #
-  './src/interactive/Grader.coffee'
-  './src/interactive/PlanCost.coffee'
-  './src/interactive/MiniLine.coffee'
-  #
-  # Main calls
-  #
-  './src/main.coffee'
-]
-
 
 module.exports = (grunt) ->
   # Register configuration
@@ -105,15 +60,14 @@ module.exports = (grunt) ->
       js:
         files:
           './dist/js/main.min.js' : js_dependencies.concat [
-            './lib/urban.js'
+            './lib/bundle.js'
           ]
-    coffee:
-      compile:
-        options :
-          join : true
-        files:
-          # Concatenate all components and compile
-          './lib/urban.js': coffee_source
+    shell:
+      build:
+        command: 'browserify -t coffeeify ./main.coffee > ../lib/bundle.js'
+        options:
+          execOptions:
+            cwd : 'src'
     watch:
       coffee :
         files: [
@@ -121,7 +75,7 @@ module.exports = (grunt) ->
           './src/interactive/*.coffee',
           './src/modeler/*.coffee'
         ],
-        tasks: ['coffee']
+        tasks: ['shell']
       html :
         files : ['./index.html']
       css :
@@ -171,6 +125,7 @@ module.exports = (grunt) ->
    'grunt-contrib-copy'
    'grunt-contrib-htmlmin'
    'grunt-contrib-cssmin'
+   'grunt-shell'
    'grunt-browser-sync'
    'grunt-processhtml'
   ]
@@ -178,13 +133,13 @@ module.exports = (grunt) ->
 
   # Coffee compiling, uglifying and watching in order
   grunt.registerTask 'default', [
-    'coffee',
+    'shell',
     'browserSync',
     'watch'
   ]
 
   grunt.registerTask 'deploy', [
-    'coffee'
+    'shell'
     'uglify'
     'cssmin'
     'processhtml'

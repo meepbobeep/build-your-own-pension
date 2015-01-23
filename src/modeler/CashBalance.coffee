@@ -4,22 +4,19 @@
     12/3/14
 ###
 
-# imports if running through node
-try
-  bgs             = require '../bgs'
-  Model           = require './Model'
-  Equation        = require './Equation'
-  Account         = require './Account'
-  Accrual         = require './Accrual'
-  Deflated        = require './Deflated'
-  Contributions   = require './Contributions'
-  Salaries        = require './Salaries'
-  SocialSecurity  = require './SocialSecurity'
-catch e
+
+bgs             = require '../bgs.coffee'
+Model           = require './Model.coffee'
+Equation        = require './Equation.coffee'
+Account         = require './Account.coffee'
+Accrual         = require './Accrual.coffee'
+Deflated        = require './Deflated.coffee'
+Contributions   = require './Contributions.coffee'
+Salaries        = require './Salaries.coffee'
+SocialSecurity  = require './SocialSecurity.coffee'
 
 
-
-class CashBalance extends Model
+module.exports = class CashBalance extends Model
 
   constructor : (opts) ->
 
@@ -536,10 +533,3 @@ class CashBalance extends Model
 
     ### Call Model Class constructor ###
     super(opts)
-
-
-
-# node exporting
-try
-  module?.exports = CashBalance
-catch e

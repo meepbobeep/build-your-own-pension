@@ -4,14 +4,11 @@
   12/05/14
 ###
 
-# imports if running through node
-try
-  bgs = require '../bgs'
-catch e
+bgs = require '../bgs.coffee'
 
 series_model_name = (s) -> s.name.split('-')[1]
 
-class Plot
+module.exports = class Plot
 
   constructor : (opts) ->
     ###Store options###

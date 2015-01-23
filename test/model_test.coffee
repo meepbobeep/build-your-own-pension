@@ -7,10 +7,16 @@
 #
 # import model libraries
 #
-bgs = require '../src/bgs'
-FAS = require '../src/modeler/FAS'
-CashBalance = require '../src/modeler/CashBalance'
-DefaultParameters = require '../src/modeler/DefaultParameters'
+bgs = require '../src/bgs.coffee'
+FAS = require '../src/modeler/FAS.coffee'
+CashBalance = require '../src/modeler/CashBalance.coffee'
+DefaultParameters = require '../src/modeler/DefaultParameters.coffee'
+AddToCSV = require '../src/modeler/ModeltoCSV.coffee'
+
+# Extend cash balance and FAS
+[FAS, CashBalance].forEach AddToCSV
+
+
 
 #
 # create salary dictionary
@@ -28,6 +34,8 @@ for level, parameters of salary_parameters
   for yos in [0..60]
     merit[level][yos] = A0*Math.E**(-k*yos)
 
+
+
 #
 # Get Default Parameters
 #
@@ -36,13 +44,16 @@ defaults = new DefaultParameters(
     {mortality : (0 for a in [0..120])}, merit
 ).defaults
 
+
 #
 # initialize FAS Model
 #
 testFas = new FAS({
   name : "test"
   parameters : defaults
-}).set("merit_level", "low").toCSV("output/fas_test.csv")
+})
+
+
 
 #
 # initialize CashBalance Model
@@ -50,4 +61,13 @@ testFas = new FAS({
 testCashBalance = new CashBalance({
   name : "test"
   parameters : defaults
-}).set("merit_level", "low").toCSV("output/CashBalance_test.csv")
+})
+
+
+testFas
+  .set("merit_level", "low")
+  .toCSV("output/fas_test.csv")
+
+testCashBalance
+  .set("merit_level", "low")
+  .toCSV("output/CashBalance_test.csv")

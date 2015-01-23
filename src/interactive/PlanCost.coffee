@@ -3,7 +3,8 @@
 # Ben Southgate
 # 10/10/14
 #
-class PlanCost
+
+module.exports = class PlanCost
 
   constructor : ->
     self = @

@@ -4,13 +4,10 @@
   12/05/14
 ###
 
-# imports if running through node
-try
-  bgs = require '../bgs'
-  Equation = require './Equation'
-catch e
+bgs = require '../bgs.coffee'
+Equation = require './Equation.coffee'
 
-class SocialSecurity extends Equation
+module.exports = class SocialSecurity extends Equation
 
   constructor : ->
 
@@ -131,15 +128,14 @@ class SocialSecurity extends Equation
         when (1943 <= b <= 1954) then 66
         when (1955 <= b <= 1959) then 66+((b-1954)*(1/6))
         else 67
-      
 
       # early retirement reduction
       tkup = start + 40
-      reduction = if (SocSecNRA-tkup) <= 0 
+      reduction = if (SocSecNRA-tkup) <= 0
                     0
                   else if (SocSecNRA-tkup) >= 3
                     ((1/180)*36)+(((SocSecNRA-tkup)-3)*((1/240)*12))
-                  else if 0 < (SocSecNRA-tkup) < 3 
+                  else if 0 < (SocSecNRA-tkup) < 3
                     ((1/180)*((SocSecNRA-tkup)*12))
 
       # calculate credits for working past NRA
@@ -185,8 +181,3 @@ class SocialSecurity extends Equation
         "inflation", "ror", "start_year",
         "wage_growth", "start", "max_ret_age"
       ]
-
-# node exporting
-try
-  module?.exports = SocialSecurity
-catch e
