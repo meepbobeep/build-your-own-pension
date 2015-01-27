@@ -62,12 +62,12 @@ module.exports = (grunt) ->
           './dist/js/main.min.js' : js_dependencies.concat [
             './lib/bundle.js'
           ]
-    shell:
-      build:
-        command: 'browserify -t coffeeify ./main.coffee > ../lib/bundle.js'
+    browserify:
+      dist:
+        files:
+          './lib/bundle.js' : ['./src/main.coffee']
         options:
-          execOptions:
-            cwd : 'src'
+          transform: ['coffeeify']
     watch:
       coffee :
         files: [
@@ -75,7 +75,7 @@ module.exports = (grunt) ->
           './src/interactive/*.coffee',
           './src/modeler/*.coffee'
         ],
-        tasks: ['shell']
+        tasks: ['browserify']
       html :
         files : ['./index.html']
       css :
@@ -125,7 +125,7 @@ module.exports = (grunt) ->
    'grunt-contrib-copy'
    'grunt-contrib-htmlmin'
    'grunt-contrib-cssmin'
-   'grunt-shell'
+   'grunt-browserify'
    'grunt-browser-sync'
    'grunt-processhtml'
   ]
@@ -133,13 +133,13 @@ module.exports = (grunt) ->
 
   # Coffee compiling, uglifying and watching in order
   grunt.registerTask 'default', [
-    'shell',
+    'browserify',
     'browserSync',
     'watch'
   ]
 
   grunt.registerTask 'deploy', [
-    'shell'
+    'browserify'
     'uglify'
     'cssmin'
     'processhtml'

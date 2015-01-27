@@ -13,8 +13,8 @@
     "grunt-browser-sync": "latest",
     "grunt-processhtml": "latest",
     "browserify" : "latest",
+    "grunt-browserify" : "latest",
     "coffeeify" : "latest",
-    "grunt-shell" : "latest",
     "fast-csv" : "latest"
   }
 }
