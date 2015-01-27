@@ -6,7 +6,7 @@ The Model code can be used to simulate pensions on the desktop by running the co
 
 ## Building Web Application
 
-NodeJS, GruntJS, and BrowserSync are required for building from source. Once they are installed, run the following commands:
+[NodeJS](http://nodejs.org/) is required to build. Once installed, run the following commands:
 
 First install dependencies, then run the following to install local references:
 
