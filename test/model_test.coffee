@@ -66,8 +66,8 @@ testCashBalance = new CashBalance({
 
 testFas
   .set("merit_level", "low")
-  .toCSV("output/fas_test.csv")
+  .toCSV("fas_test.csv")
 
 testCashBalance
   .set("merit_level", "low")
-  .toCSV("output/CashBalance_test.csv")
+  .toCSV("CashBalance_test.csv")

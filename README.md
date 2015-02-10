@@ -15,7 +15,7 @@ npm install -g coffee-script
 
 ## Running Model server/desktop-side through NodeJS
 
-The Model code can be used to simulate pensions on the desktop by running the code through NodeJS. See [model_test.coffee](https://github.com/UI-Research/pension-modeler/blob/master/test/model_test.coffee) for an example usage.
+The Model code can be used to simulate pensions on the desktop by running the code through NodeJS. See [model_test.coffee](https://github.com/UrbanInstitute/build-your-own-pension/blob/master/test/model_test.coffee) for an example usage.
 
 ```
 coffee model_test.coffee
