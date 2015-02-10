@@ -9,6 +9,8 @@ To install dependencies, run:
 
 ```
 npm install
+npm install -g grunt-cli
+npm install -g coffee-script
 ```
 
 ## Running Model server/desktop-side through NodeJS
@@ -16,7 +18,7 @@ npm install
 The Model code can be used to simulate pensions on the desktop by running the code through NodeJS. See [model_test.coffee](https://github.com/UI-Research/pension-modeler/blob/master/test/model_test.coffee) for an example usage.
 
 ```
-node model_test.coffee
+coffee model_test.coffee
 ```
 
 ## Building Web Application
@@ -28,7 +30,7 @@ node model_test.coffee
 grunt
 ```
 
-runt "grunt deploy" to push the distribution code to the server
+run "grunt deploy" to push the distribution code to the server
 
 ```
 grunt deploy
